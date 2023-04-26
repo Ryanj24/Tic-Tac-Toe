@@ -6,7 +6,12 @@ const gameboard = () => {
     let board =  createGrid();
 
     return {
-        board
+        board,
+        placeMarker(player, position) {
+            if (validPosition(position)) {
+                this.board[position[0]][position[1]] = player.marker
+            }
+        }
     }
 }
 
@@ -23,5 +28,15 @@ function createGrid() {
     return grid
 }
 
+function validPosition(position) {
+    const board = gameboard().board;
+    if (position[0] < 0 || position[0] > 2 || position[1] < 0 || position[1] > 2) {
+        return false
+    } else if (board[position[0]][position[1]] != '') {
+        return false
+    }
+    return true
+}
 
-export { gameboard, createGrid }
+
+export { gameboard, createGrid, validPosition }
