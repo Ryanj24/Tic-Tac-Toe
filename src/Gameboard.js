@@ -7,8 +7,10 @@ const gameboard = () => {
 
     return {
         board,
+
+        // Method to place player marker in a valid position on the board
         placeMarker(player, position) {
-            if (validPosition(position)) {
+            if (validPosition(position) && this.board[position[0]][position[1]] != 'X' && this.board[position[0]][position[1]] != 'O') {
                 this.board[position[0]][position[1]] = player.marker
             }
         }
@@ -30,11 +32,11 @@ function createGrid() {
 
 function validPosition(position) {
     const board = gameboard().board;
+
     if (position[0] < 0 || position[0] > 2 || position[1] < 0 || position[1] > 2) {
         return false
-    } else if (board[position[0]][position[1]] != '') {
-        return false
     }
+
     return true
 }
 

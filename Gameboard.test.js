@@ -41,12 +41,14 @@ describe('Check to ensure valid positions are entered', () => {
         expect(validPosition([-1, 2])).toBe(false)
             
     })
+
 });
 
 describe('Place marker on board if valid position entered', () => {
 
     const board = gameboard();
     const player1 = player('Adam', 'X');
+    const player2 = player('Amy', 'O');
 
     test('Adam selects position [0, 1]', () => {
 
@@ -77,6 +79,38 @@ describe('Place marker on board if valid position entered', () => {
         board.placeMarker(player1, [-1, 2]);
         
         expect(board.board).toEqual([['', 'X', ''], ['', '', ''], ['', 'X', '']])
+            
+    })
+
+    test('Amy selects position [1, 2]', () => {
+        
+        board.placeMarker(player2, [1, 2]);
+        
+        expect(board.board).toEqual([['', 'X', ''], ['', '', 'O'], ['', 'X', '']])
+            
+    })
+
+    test('Amy selects position [2, 2]', () => {
+        
+        board.placeMarker(player2, [2, 2]);
+        
+        expect(board.board).toEqual([['', 'X', ''], ['', '', 'O'], ['', 'X', 'O']])
+            
+    })
+
+    test('Amy selects [0, 1] that Adam has already chosen', () => {
+        
+        board.placeMarker(player2, [0, 1]);
+        
+        expect(board.board).toEqual([['', 'X', ''], ['', '', 'O'], ['', 'X', 'O']])
+            
+    })
+
+    test('Amy selects [2, 2] that she has already chosen before', () => {
+        
+        board.placeMarker(player2, [2, 2]);
+        
+        expect(board.board).toEqual([['', 'X', ''], ['', '', 'O'], ['', 'X', 'O']])
             
     })
 })
