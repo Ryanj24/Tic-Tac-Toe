@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
@@ -10,7 +10,7 @@ module.exports = {
   },
   devServer: {
     static: {
-    directory: path.resolve(__dirname, 'dist')
+      directory: path.resolve(__dirname, 'dist')
     },
     open: true,
     hot: true

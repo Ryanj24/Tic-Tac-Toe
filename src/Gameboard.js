@@ -12,6 +12,8 @@ const gameboard = () => {
         placeMarker(player, position) {
             if (validPosition(position) && this.board[position[0]][position[1]] != 'X' && this.board[position[0]][position[1]] != 'O') {
                 this.board[position[0]][position[1]] = player.marker
+                // New
+                player.board[position[0]][position[1]] = player.marker
             }
         }
     }
