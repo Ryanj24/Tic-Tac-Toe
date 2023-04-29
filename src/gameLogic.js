@@ -9,7 +9,7 @@ const playGame = () => {
     const player2 = getPlayer();
 
     let playerTurn = player1;
-    let winner;
+    let winner = '';
 
 
     for (let i = 0; i < 9; i++) {
@@ -33,7 +33,13 @@ const playGame = () => {
         console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`)
     }
 
-    printWinner(winner);
+    if (winner == '') {
+        console.log('Game over! Draw!')
+    } else {
+        printWinner(winner);
+    }
+
+    //printWinner(winner);
 }
 
 function getPlayer() {
