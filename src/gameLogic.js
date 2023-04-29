@@ -4,56 +4,36 @@ import { player } from "./players";
 const playGame = () => {
     const board = gameboard();
 
-    /*
-    const player1Name = prompt('Please enter your name: ');
-    const player1Marker = prompt('Please select either "X" or "O"');
-    const player1 = player(player1Name, player1Marker);
-
-    const player2Name = prompt('Please enter your name: ');
-    const player2Marker = prompt('Please select either "X" or "O"');
-    const player2 = player(player2Name, player2Marker);*/
 
     const player1 = getPlayer();
     const player2 = getPlayer();
 
     let playerTurn = player1;
+    let winner;
 
 
-    /*
     for (let i = 0; i < 9; i++) {
+
         const pos = JSON.parse(prompt(`${playerTurn.name} please enter a position`));
 
         playRound(board, playerTurn, pos);
 
-        if (playerTurn == player1) {
-            playerTurn = player2
-        } else if (playerTurn == player2) {
-            playerTurn = player1
+        if (checkWinner(playerTurn)) {
+            winner = playerTurn.name;
+            console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`)
+            break
         }
-
-        console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`);
-        
-    }*/
-
-    //console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`);
-    //console.log(player1.board);
-    //console.log(player2.board);
-
-    let i = 0;
-    while (!checkWinner(playerTurn) && i < 9) {
-        const pos = JSON.parse(prompt(`${playerTurn.name} please enter a position`));
-
-        playRound(board, playerTurn, pos);
 
         if (playerTurn == player1) {
             playerTurn = player2
-        } else if (playerTurn == player2) {
+        } else {
             playerTurn = player1
         }
 
-        console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`);
-        i++
+        console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`)
     }
+
+    printWinner(winner);
 }
 
 function getPlayer() {
@@ -67,7 +47,7 @@ function playRound(board, player, position) {
     board.placeMarker(player, position)
 }
 
-// Correctly checks all the lines
+
 function checkWinner(player) {
     const winCombos = [
     [player.board[0][0], player.board[0][1], player.board[0][2]],
@@ -87,7 +67,9 @@ function checkWinner(player) {
     return false
 }
 
+function printWinner(winner) {
+    console.log(`Game over! ${winner} wins!`)
+}
 
 
-
-export { playGame, checkWinner }
+export { playGame, checkWinner, printWinner }

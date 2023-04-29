@@ -1,5 +1,6 @@
 import { checkWinner } from "./src/gameLogic";
 import { player } from "./src/players";
+import { printWinner } from "./src/gameLogic";
 
 describe('Check different possible winning scenarios', () => {
 
@@ -47,5 +48,16 @@ describe('Check different possible winning scenarios', () => {
         expect(checkWinner(player4)).toBe(true)
             
     })
+
+});
+
+describe('Check that winner is being correctly returned', () => {
+
+    test('Check if Adam won', () => {
+
+        expect(printWinner('Adam')).toEqual(`Game over! Adam wins!`)
+            
+    })
+
 
 });
