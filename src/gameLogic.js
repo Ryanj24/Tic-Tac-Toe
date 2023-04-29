@@ -39,7 +39,8 @@ const playGame = () => {
     //console.log(player1.board);
     //console.log(player2.board);
 
-    while (!checkWinner(player1.board)) {
+    let i = 0;
+    while (!checkWinner(playerTurn) && i < 9) {
         const pos = JSON.parse(prompt(`${playerTurn.name} please enter a position`));
 
         playRound(board, playerTurn, pos);
@@ -51,6 +52,7 @@ const playGame = () => {
         }
 
         console.log(`${board.board[0]} \n ${board.board[1]} \n ${board.board[2]}`);
+        i++
     }
 }
 
@@ -65,45 +67,27 @@ function playRound(board, player, position) {
     board.placeMarker(player, position)
 }
 
-function checkWinner(player1Board, player2Board) {
-    
+// Correctly checks all the lines
+function checkWinner(player) {
     const winCombos = [
-        [[0][0], [0][1], [0][2]],
-        [[1][0], [1][1], [1][2]],
-        [[2][0], [2][1], [2][2]],
-        [[0][0], [1][0], [2][0]],
-        [[0][1], [1][1], [2][1]],
-        [[0][2], [1][2], [2][2]],
-        [[0][0], [1][1], [2][2]],
-        [[0][2], [1][1], [2][0]]
-    ]
-    /*
-    const winCombos = [
-        [[[0][0]], [[0][1]], [[0][2]]],
-        [[[1][0]], [[1][1]], [[1][2]]],
-        [[[2][0]], [[2][1]], [[2][2]]],
-        [[[0][0]], [[1][0]], [[2][0]]],
-        [[[0][1]], [[1][1]], [[2][1]]],
-        [[[0][2]], [[1][2]], [[2][2]]],
-        [[[0][0]], [[1][1]], [[2][2]]],
-        [[[0][2]], [[1][1]], [[2][0]]]
-    ]*/
-
-    if (player1Board[winCombos[0][0]][0] == 'X' && player1Board[winCombos[0][0]][1] == 'X' && player1Board[winCombos[0][0]][2] == 'X') {
-        return true
-    } else {
-        return false
-    }
-
-    /*
+    [player.board[0][0], player.board[0][1], player.board[0][2]],
+    [player.board[1][0], player.board[1][1], player.board[1][2]],
+    [player.board[2][0], player.board[2][1], player.board[2][2]],
+    [player.board[0][0], player.board[1][0], player.board[2][0]],
+    [player.board[0][1], player.board[1][1], player.board[2][1]],
+    [player.board[0][2], player.board[1][2], player.board[2][2]],
+    [player.board[0][0], player.board[1][1], player.board[2][2]],
+    [player.board[0][2], player.board[1][1], player.board[2][0]],
+]
     for (let i = 0; i < winCombos.length; i++) {
-        if (player1Board[winCombos[i][0][0]] == 'X' && player1Board[winCombos[i][0][1]] == 'X' && player1Board[winCombos[i][0][1]] == 'X') {
+        if (winCombos[i].toString() == [player.marker, player.marker, player.marker].toString()) {
             return true
         }
-    }*/
-
+    }
+    return false
 }
 
 
 
-export { playGame }
+
+export { playGame, checkWinner }
