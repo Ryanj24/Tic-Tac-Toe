@@ -56,19 +56,24 @@ button:hover, input[type = submit]:hover {
     font-size: 8rem;
 }
 
-.main-container .setup-modal-container.active {
+.main-container .setup-modal-container {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
     z-index: 100;
-    pointer-events: all;
+    pointer-events: none;
     background-color: rgba(0, 0, 0, 0.4);
-    opacity: 1;
+    opacity: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.main-container .setup-modal-container.active {
+    pointer-events: all;
+    opacity: 1;
 }
 
 .main-container .setup-modal-container .setup-modal {
@@ -159,7 +164,7 @@ button:hover, input[type = submit]:hover {
     border-radius: 10px;
 }
 
-.main-container #modalForm .player-divs .marker-choice .marker-btns button:focus {
+.main-container #modalForm .player-divs .marker-choice .marker-btns button.active {
     background-color: yellow;
 }
 
