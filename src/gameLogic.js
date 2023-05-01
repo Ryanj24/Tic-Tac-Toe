@@ -3,12 +3,15 @@ import { player } from "./players";
 
 const playGame = () => {
     const board = gameboard();
+    const grid = document.querySelector('main-grid');
 
 
     const player1 = getPlayer();
     const player2 = getPlayer();
 
     let playerTurn = player1;
+    const playerTurnText = document.querySelector('.player-turn');
+    playerTurnText.textContent = player1.name;
     let winner = '';
 
 
