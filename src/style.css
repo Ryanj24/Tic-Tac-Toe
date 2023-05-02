@@ -1,18 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Bruno Ace SC', 'Roboto', sans-serif, Helvetica;
 }
 
 body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: rgb(143, 143, 250);
 }
 
 header {
-    background-color: aqua;
     text-align: center;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 header h1 {
@@ -27,8 +35,8 @@ button:hover, input[type = submit]:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: yellow;
     padding: 20px;
+    height: 90vh;
 }
 
 #content .player-turn {
@@ -44,7 +52,7 @@ button:hover, input[type = submit]:hover {
 
 #content .main-grid .grid-div{
     border: 1px solid;
-    background-color: greenyellow;
+    background-color: rgb(255, 61, 47);
     height: 200px;
     width: 200px;
     display: flex;
@@ -81,7 +89,7 @@ button:hover, input[type = submit]:hover {
     display: flex;
     flex-direction: column;
     height: 500px;
-    width: 700px;
+    width: 850px;
     border-radius: 15px;
     background-color: aqua;
     padding: 20px;
@@ -99,7 +107,6 @@ button:hover, input[type = submit]:hover {
     justify-content: center;
     width: 100%;
     height: 100%;
-    background-color: yellow;
     padding: 10px;
 }
 
@@ -121,12 +128,10 @@ button:hover, input[type = submit]:hover {
 }
 
 .main-container #modalForm .player-divs .player1-div {
-    background-color: blueviolet;
     padding: 10px;
 }
 
 .main-container #modalForm .player-divs .player2-div {
-    background-color: rgb(33, 231, 60);
     padding: 10px;
 }
 

@@ -2,7 +2,7 @@ import { player } from "./players";
 
 const generateUI = () => {
     generateGrid();
-    //setupModal();
+    setupModal();
     playGame();
 }
 
@@ -92,22 +92,43 @@ const playGame = () => {
     const gridDivs = document.querySelectorAll('.grid-div');
 
     let winner = '';
+    let count = 0;
     gridContainer.addEventListener("click", (e) => {
+
         if (e.target.textContent == '') {
             if (playerTurn == player1) {
+
                 e.target.textContent = player1.marker;
+                
                 if (checkWinner(gridDivs)) {
                     winner = player1.name;
                     endGame(winner);
                 };
+
+                count++;
+                if (count == 9) {
+                    endGame(winner);
+                }
+
+                
                 playerTurn = player2;
                 playerTurnText.textContent = `${playerTurn.name}'s Turn`;
+
             } else {
+                
                 e.target.textContent = player2.marker;
+                
                 if (checkWinner(gridDivs)) {
                     winner = player2.name;
                     endGame(winner);
                 };
+
+                count++;
+                if (count == 9) {
+                    endGame(winner);
+                }
+
+                
                 playerTurn = player1;
                 playerTurnText.textContent = `${playerTurn.name}'s Turn`;
             }
@@ -136,12 +157,18 @@ function checkWinner(divs) {
     return false
 }
 
+
 const endGame = (winner) => {
     const endgameModal = document.querySelector('.endgame-modal-container');
     endgameModal.classList.add('active');
 
     const winnerText = document.getElementById('winner');
-    winnerText.textContent = `${winner} Wins!`;
+
+    if (winner == '') {
+        winnerText.textContent = 'Draw!'
+    } else {
+        winnerText.textContent = `${winner} Wins!`;
+    }
 }
 
 export { generateUI }
