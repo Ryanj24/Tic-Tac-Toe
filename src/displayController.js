@@ -1,11 +1,15 @@
+import { player } from "./players";
+
 const generateUI = () => {
     generateGrid();
-    setupModal();
+    //setupModal();
+    playGame();
 }
 
 const generateGrid = () => {
 
     const gridContainer = document.querySelector('.main-grid');
+    gridContainer.innerHTML = '';
 
     for (let i = 0; i < 9; i++) {
         const gridDiv = document.createElement('div');
@@ -15,14 +19,6 @@ const generateGrid = () => {
         gridContainer.appendChild(gridDiv);
     }
 
-    
-    gridContainer.addEventListener("click", (e) => {
-        const marker = document.createElement('p');
-        marker.textContent = 'X';
-
-        console.log(e.target.textContent)
-        e.target.appendChild(marker);
-    })
 }
 
 const setupModal = () => {
@@ -31,6 +27,10 @@ const setupModal = () => {
     const player2markerBtns = document.querySelectorAll('.player2-markers')
 
     let player1marker = '', player2marker = '';
+
+    const modalContainer = document.querySelector('.setup-modal-container');
+    modalContainer.classList.add('active');
+
 
     player1markerBtns.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -76,4 +76,72 @@ const setupModal = () => {
         modalContainer.classList.remove('active');
     })
 }
+
+const playGame = () => {
+    // get players and their markers from local storage
+    const player1 = player(localStorage.getItem('player1-name'), localStorage.getItem('player1-marker'));
+    const player2 = player(localStorage.getItem('player2-name'), localStorage.getItem('player2-marker'));
+
+
+    let playerTurn = player1;
+    const playerTurnText = document.getElementById('player-turn');
+    playerTurnText.textContent = `${playerTurn.name}'s Turn`;
+
+
+    const gridContainer = document.querySelector('.main-grid');
+    const gridDivs = document.querySelectorAll('.grid-div');
+
+    let winner = '';
+    gridContainer.addEventListener("click", (e) => {
+        if (e.target.textContent == '') {
+            if (playerTurn == player1) {
+                e.target.textContent = player1.marker;
+                if (checkWinner(gridDivs)) {
+                    winner = player1.name;
+                    endGame(winner);
+                };
+                playerTurn = player2;
+                playerTurnText.textContent = `${playerTurn.name}'s Turn`;
+            } else {
+                e.target.textContent = player2.marker;
+                if (checkWinner(gridDivs)) {
+                    winner = player2.name;
+                    endGame(winner);
+                };
+                playerTurn = player1;
+                playerTurnText.textContent = `${playerTurn.name}'s Turn`;
+            }
+        }
+    })
+
+}
+
+function checkWinner(divs) {
+    const winCombos = [
+        [divs[0].textContent, divs[1].textContent, divs[2].textContent],
+        [divs[3].textContent, divs[4].textContent, divs[5].textContent],
+        [divs[6].textContent, divs[7].textContent, divs[8].textContent],
+        [divs[0].textContent, divs[3].textContent, divs[6].textContent],
+        [divs[1].textContent, divs[4].textContent, divs[7].textContent],
+        [divs[2].textContent, divs[5].textContent, divs[8].textContent],
+        [divs[0].textContent, divs[4].textContent, divs[8].textContent],
+        [divs[2].textContent, divs[4].textContent, divs[6].textContent]
+    ]
+
+    for (let i = 0; i < winCombos.length; i++) {
+        if (winCombos[i].toString() == ['X', 'X', 'X'].toString() || winCombos[i].toString() == ['O', 'O', 'O'].toString()) {
+            return true
+        }
+    }
+    return false
+}
+
+const endGame = (winner) => {
+    const endgameModal = document.querySelector('.endgame-modal-container');
+    endgameModal.classList.add('active');
+
+    const winnerText = document.getElementById('winner');
+    winnerText.textContent = `${winner} Wins!`;
+}
+
 export { generateUI }

@@ -50,6 +50,7 @@ button:hover, input[type = submit]:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 6rem;
 }
 
 #content .main-grid .grid-div p {
@@ -184,4 +185,63 @@ button:hover, input[type = submit]:hover {
     border: none;
     border-radius: 20px;
     padding: 10px 30px;
+}
+
+.main-container .endgame-modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100;
+    pointer-events: none;
+    background-color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container .endgame-modal-container.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.main-container .endgame-modal-container .endgame-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 300px;
+    width: 400px;
+    border-radius: 15px;
+    background-color: aqua;
+    padding: 20px;
+}
+
+.main-container .endgame-modal h1 {
+    width: 100%;
+    text-align: center;
+}
+
+.main-container .endgame-modal .winner {
+    width: 100%;
+    text-align: center;
+}
+
+.main-container .endgame-modal .btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container .endgame-modal .btns button {
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    border-radius: 15px;
+}
+
+.main-container .endgame-modal .btns button:first-child{
+    margin-right: 20px;
 }
