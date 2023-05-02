@@ -3,7 +3,6 @@ import { player } from "./players";
 const generateUI = () => {
     generateGrid();
     setupModal();
-    playGame();
 }
 
 const generateGrid = () => {
@@ -66,19 +65,36 @@ const setupModal = () => {
 
     myForm.addEventListener("submit", (e) => {
         e.preventDefault();
+
+        const p1Name =  document.getElementById('name1').value;
+        const p2Name =  document.getElementById('name2').value;
         
-        localStorage.setItem('player1-name', document.getElementById('name1').value);
+        //localStorage.setItem('player1-name', document.getElementById('name1').value);
+        localStorage.setItem('player1-name', p1Name);
         localStorage.setItem('player1-marker', player1marker);
-        localStorage.setItem('player2-name', document.getElementById('name2').value);
+        //localStorage.setItem('player2-name', document.getElementById('name2').value);
+        localStorage.setItem('player2-name', p2Name);
         localStorage.setItem('player2-marker', player2marker);
+
+        console.log(p1Name);
+        console.log(player1marker);
+        console.log(p2Name);
+        console.log(player2marker);
+
 
         const modalContainer = document.querySelector('.setup-modal-container');
         modalContainer.classList.remove('active');
+
+        playGame();
     })
 }
 
+
 const playGame = () => {
     // get players and their markers from local storage
+
+    let count = 0;
+
     const player1 = player(localStorage.getItem('player1-name'), localStorage.getItem('player1-marker'));
     const player2 = player(localStorage.getItem('player2-name'), localStorage.getItem('player2-marker'));
 
@@ -91,8 +107,6 @@ const playGame = () => {
     const gridContainer = document.querySelector('.main-grid');
     const gridDivs = document.querySelectorAll('.grid-div');
 
-    let winner = '';
-    let count = 0;
     gridContainer.addEventListener("click", (e) => {
 
         if (e.target.textContent == '') {
@@ -101,13 +115,13 @@ const playGame = () => {
                 e.target.textContent = player1.marker;
                 
                 if (checkWinner(gridDivs)) {
-                    winner = player1.name;
-                    endGame(winner);
+                    endGame(player1.name);
                 };
 
                 count++;
                 if (count == 9) {
-                    endGame(winner);
+                    count = 0;
+                    endGame('');
                 }
 
                 
@@ -119,13 +133,13 @@ const playGame = () => {
                 e.target.textContent = player2.marker;
                 
                 if (checkWinner(gridDivs)) {
-                    winner = player2.name;
-                    endGame(winner);
+                    endGame(player2.name);
                 };
 
                 count++;
                 if (count == 9) {
-                    endGame(winner);
+                    count = 0;
+                    endGame('');
                 }
 
                 
@@ -133,6 +147,11 @@ const playGame = () => {
                 playerTurnText.textContent = `${playerTurn.name}'s Turn`;
             }
         }
+    })
+
+    const playAgain = document.getElementById('playAgain');
+    playAgain.addEventListener("click", () => {
+        window.location.reload();
     })
 
 }
@@ -169,6 +188,6 @@ const endGame = (winner) => {
     } else {
         winnerText.textContent = `${winner} Wins!`;
     }
+    
 }
-
 export { generateUI }
